@@ -261,8 +261,8 @@ QString PlayerControl::getPlayerPositionInformation()
             QString minuteString;
             QString secondString;
 
-            // Get the full 7 character time-code string
-            timeCodeString = QString("%1").arg(timeCode, 7, 10, QChar('0'));
+            // Get the full 5 character time-code string
+            timeCodeString = QString("%1").arg(timeCode, 5, 10, QChar('0'));
 
             // Split up the time-code
             hourString = timeCodeString.left(1);
@@ -904,7 +904,7 @@ PlayerControl::AcStates PlayerControl::acStateGetLength()
         }
     } else {
         // Seek to an impossible CLV time code
-        if (playerCommunication->setPositionTimeCode(1595900)) {
+        if (playerCommunication->setPositionTimeCode(95959)) {
             // Successful, get the current time code
             qint32 discEndAddress = playerCommunication->getCurrentTimeCode();
             qDebug() << "PlayerControl::acStateGetLength(): CLV Disc length" << discEndAddress << "time code";

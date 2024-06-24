@@ -365,11 +365,11 @@ qint32 PlayerCommunication::getCurrentFrame()
 // Return the current timeCode or -1 if communication fails
 qint32 PlayerCommunication::getCurrentTimeCode()
 {
-    sendSerialCommand("?F\r");
+    sendSerialCommand("?T\r");
     QString response = getSerialResponse(N_TIMEOUT);
 
     qint32 timeCode;
-    if (!response.isEmpty()) timeCode = static_cast<int>(response.left(7).toUInt());
+    if (!response.isEmpty()) timeCode = static_cast<int>(response.left(5).toUInt());
     else timeCode = -1;
 
     return timeCode;
@@ -415,7 +415,7 @@ qint32 PlayerCommunication::getMaximumFrameNumber()
 
 qint32 PlayerCommunication::getMaximumTimeCode()
 {
-    sendSerialCommand("FR1595900SE\r"); // Frame seek to impossible time-code frame number
+    sendSerialCommand("TM95959SE\r"); // Frame seek to impossible time-code number
 
     // Return the current time code
     return getCurrentTimeCode();
@@ -588,7 +588,7 @@ bool PlayerCommunication::setPositionTimeCode(qint32 address)
     QString response;
     QString command;
 
-    command = QString("FR%1SE\r").arg(address);
+    command = QString("TM%1SE\r").arg(address);
     sendSerialCommand(command);
     response = getSerialResponse(L_TIMEOUT);
 
