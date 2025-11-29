@@ -396,7 +396,7 @@ qint32 PlayerCommunication::getCurrentFrame(bool& inLeadIn, bool& inLeadOut)
 // Return the current timeCode or -1 if communication fails
 qint32 PlayerCommunication::getCurrentTimeCode(bool& inLeadIn, bool& inLeadOut)
 {
-    sendSerialCommand("?F\r");
+    sendSerialCommand("?T\r");
     QString response = getSerialResponse(N_TIMEOUT);
 
     inLeadIn = false;
@@ -413,7 +413,7 @@ qint32 PlayerCommunication::getCurrentTimeCode(bool& inLeadIn, bool& inLeadOut)
     }
 
     qint32 timeCode;
-    if (!response.isEmpty()) timeCode = static_cast<int>(response.left(7).toUInt());
+    if (!response.isEmpty()) timeCode = static_cast<int>(response.left(5).toUInt());
     else timeCode = -1;
 
     return timeCode;
@@ -711,7 +711,7 @@ bool PlayerCommunication::setPositionTimeCode(qint32 address)
     QString response;
     QString command;
 
-    command = QString("FR%1SE\r").arg(address);
+    command = QString("TM%1SE\r").arg(address);
     sendSerialCommand(command);
     response = getSerialResponse(L_TIMEOUT);
 

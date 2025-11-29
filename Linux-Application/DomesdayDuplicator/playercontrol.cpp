@@ -1037,7 +1037,7 @@ PlayerControl::AcStates PlayerControl::acStateGetLength()
         }
     } else {
         // Seek to an impossible CLV time code
-        if (playerCommunication->setPositionTimeCode(1595900)) {
+        if (playerCommunication->setPositionTimeCode(95959)) {
             // Successful, get the current time code
             qint32 discEndAddress = playerCommunication->getCurrentTimeCode(inLeadIn, inLeadOut);
             qDebug() << "PlayerControl::acStateGetLength(): CLV Disc length" << discEndAddress << "time code";
